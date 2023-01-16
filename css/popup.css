@@ -1,0 +1,37 @@
+body {
+  width: 300px;
+  padding: 0.2rem;
+}
+
+#searchGroup {
+  display: flex;
+  justify-content: center;
+}
+
+#searchInput {
+  margin-left: 0.5em;
+}
+
+#btnGroup { 
+  display: flex;
+  justify-content: center;
+}
+
+#btnGroup button { 
+  border: 1px solid skyblue; 
+  background-color: rgba(0,0,0,0); 
+  color: skyblue;
+}
+
+#prevBtn { 
+  margin: 0.5em 1em 0em 1em;
+} 
+
+#nextBtn { 
+  margin: 0.5em 1em 0em 1em;
+} 
+
+#outputGroup {
+  display: flex;
+  justify-content: center;
+}

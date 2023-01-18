@@ -1,26 +1,72 @@
-function serachJaum() {
-  let serachInput = document.querySelector('#searchInput');
+function setCurrentIndex(index) {
+  document.querySelector('#current').innerText = index;
+}
 
-  chrome.tabs.query({ currentWindow: true, active: true }, (tabs) => {
-    chrome.tabs.sendMessage(tabs[0].id, {action: 'search', val: searchInputValue}, (response) => {
-      //setTotalCount(response.cnt);
-      //setCurrentIndex(min(response.current_index + 1, response.cnt));
-    });
-  });
+function setTotalWordSize(amt) {
+  document.querySelector('#total').innerText = amt;
 }
 
 function init() {
   let serachInput = document.querySelector('#searchInput');
+  let prevBtn = document.querySelector('#prevBtn');
+  let nextBtn = document.querySelector('#nextBtn');
+
+  let currentIndex = 0;
+  let wordCnt = 0;
 
   serachInput.addEventListener('change', ()=> {
     chrome.tabs.query({ currentWindow: true, active: true }, (tabs) => {
       chrome.tabs.sendMessage(tabs[0].id, {action: 'search', val: serachInput.value}, (response) => {
-        // console.log(response.status);
-        //setTotalCount(response.cnt);
-        //setCurrentIndex(min(response.current_index + 1, response.cnt));
+
+        if(response.status == 0) {
+          currentIndex = parseInt(response.currentIndex);
+          wordCnt = parseInt(response.wordCnt);
+
+          if(wordCnt > 0)
+            currentIndex++;
+        }
+        else {
+          serachInput.value = "";
+          currentIndex = 0;
+          wordCnt = 0;
+        }
+
+        setCurrentIndex(currentIndex);
+        setTotalWordSize(wordCnt);
       });
     });
   })
+
+  prevBtn.addEventListener('click', () => {
+    chrome.tabs.query({ currentWindow: true, active: true }, (tabs) => {
+      chrome.tabs.sendMessage(tabs[0].id, {action: 'prevBtn'}, (response) => {
+
+        if(response.status == 0) {
+          currentIndex = parseInt(response.currentIndex);
+
+          if(wordCnt > 0)
+            currentIndex++; 
+          setCurrentIndex(currentIndex);
+        }
+      });
+    });
+  });
+
+  nextBtn.addEventListener('click', () => {
+    chrome.tabs.query({ currentWindow: true, active: true }, (tabs) => {
+      chrome.tabs.sendMessage(tabs[0].id, {action: 'nextBtn'}, (response) => {
+
+        if(response.status == 0) {
+          currentIndex = parseInt(response.currentIndex);
+
+          if(wordCnt > 0)
+            currentIndex++; 
+          setCurrentIndex(currentIndex);
+        }
+      });
+    });
+  });
+
 }
 
 window.onload = () => {

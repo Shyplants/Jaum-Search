@@ -65,6 +65,7 @@ function matchingJaumWord(jaums) {
       jaumWords.add(jaumText[i].slice(0, jaums.length));
     }
   }
+
 }
 
 function extractNode(element, pattern) {

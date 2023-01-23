@@ -1,37 +1,57 @@
 body {
-  width: 300px;
-  padding: 0.2rem;
+  width: 360px;
+  height: 36px;
+  margin: 2px 2px 2px 2px;
 }
 
-#searchGroup {
+#searchBarContainer {
+  height: 100%;
+  width: 100%;
   display: flex;
+  flex-direction: row;
   justify-content: center;
+  align-items: center;
 }
 
-#searchInput {
-  margin-left: 0.5em;
-}
-
-#btnGroup { 
+.searchBarInputContainer {
   display: flex;
-  justify-content: center;
+  height: 24px;
+  width: 96%;
+  padding: 0 0 0 2%;
 }
 
-#btnGroup button { 
-  border: 1px solid skyblue; 
-  background-color: rgba(0,0,0,0); 
-  color: skyblue;
-}
-
-#prevBtn { 
-  margin: 0.5em 1em 0em 1em;
-} 
-
-#nextBtn { 
-  margin: 0.5em 1em 0em 1em;
-} 
-
-#outputGroup {
+.searchBarInput {
+  padding: 0;
   display: flex;
-  justify-content: center;
+  height: 24px;
+  border: none;
+  font-size: 16px;
+  width: 240px;
+}
+
+.searchBarCounter {
+  display: flex;
+  align-self: center;
+  border-right: 0.5px solid #aaa;
+  width: 30px;
+  color: #aaa;
+}
+
+.searchBarTool {
+  display: flex;
+  flex-grow: 1;
+  text-align: center;
+  width: 40px;
+  color: #aaa;
+  font-size: 14px;
+}
+
+span {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.searchBarClose {
+  cursor: pointer;
+  color: black;
 }

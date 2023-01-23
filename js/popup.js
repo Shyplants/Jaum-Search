@@ -7,7 +7,7 @@ function setTotalWordSize(amt) {
 }
 
 function init() {
-  let serachInput = document.querySelector('#searchInput');
+  let serachInput = document.querySelector('.searchBarInput');
   let prevBtn = document.querySelector('#prevBtn');
   let nextBtn = document.querySelector('#nextBtn');
 

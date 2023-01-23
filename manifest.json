@@ -3,7 +3,7 @@
   "description" : "Korean Initial consonant search Chrome Extension",
   "version": "1.0",
   "manifest_version": 3,
-  "permissions": ["activeTab", "tabs"],
+  "permissions": ["activeTab"],
   "host_permissions": ["http://*/*", "https://*/*"],
   "content_scripts": [
     {
@@ -21,10 +21,5 @@
   },
   "action": {
     "default_popup": "popup.html"
-  },
-  "web_accessible_resources": [{
-    "resources": [],
-    "matches": ["http://*/*", "https://*/*"],
-    "extension_ids": []
-  }]
+  }
 }

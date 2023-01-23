@@ -9,34 +9,42 @@ function setTotalWordSize(amt) {
   document.querySelector('#total').innerText = amt;
 }
 
+function moveNext() {
+  chrome.tabs.query({ currentWindow: true, active: true }, (tabs) => {
+    chrome.tabs.sendMessage(tabs[0].id, {action: 'nextBtn'}, (response) => {
+
+      if(response.status == 0) {
+        currentIndex = parseInt(response.currentIndex);
+
+        if(wordCnt > 0)
+          currentIndex++; 
+        setCurrentIndex(currentIndex);
+      }
+    });
+  });
+}
+
+function movePrev() {
+  chrome.tabs.query({ currentWindow: true, active: true }, (tabs) => {
+    chrome.tabs.sendMessage(tabs[0].id, {action: 'prevBtn'}, (response) => {
+
+      if(response.status == 0) {
+        currentIndex = parseInt(response.currentIndex);
+
+        if(wordCnt > 0)
+          currentIndex++; 
+        setCurrentIndex(currentIndex);
+      }
+    });
+  });
+}
+
 function doKeyPress(e) {
   if(e.key == 'Enter' || e.key == 'ArrowDown') {
-    chrome.tabs.query({ currentWindow: true, active: true }, (tabs) => {
-      chrome.tabs.sendMessage(tabs[0].id, {action: 'nextBtn'}, (response) => {
-
-        if(response.status == 0) {
-          currentIndex = parseInt(response.currentIndex);
-
-          if(wordCnt > 0)
-            currentIndex++; 
-          setCurrentIndex(currentIndex);
-        }
-      });
-    });
+    moveNext();
   }
   else if(e.key == 'ArrowUp') {
-    chrome.tabs.query({ currentWindow: true, active: true }, (tabs) => {
-      chrome.tabs.sendMessage(tabs[0].id, {action: 'prevBtn'}, (response) => {
-
-        if(response.status == 0) {
-          currentIndex = parseInt(response.currentIndex);
-
-          if(wordCnt > 0)
-            currentIndex++; 
-          setCurrentIndex(currentIndex);
-        }
-      });
-    });
+    movePrev();
   }
 }
 
@@ -73,39 +81,17 @@ function init() {
   })
 
   prevBtn.addEventListener('click', () => {
-    chrome.tabs.query({ currentWindow: true, active: true }, (tabs) => {
-      chrome.tabs.sendMessage(tabs[0].id, {action: 'prevBtn'}, (response) => {
-
-        if(response.status == 0) {
-          currentIndex = parseInt(response.currentIndex);
-
-          if(wordCnt > 0)
-            currentIndex++; 
-          setCurrentIndex(currentIndex);
-        }
-      });
-    });
+    movePrev();
   });
 
   nextBtn.addEventListener('click', () => {
-    chrome.tabs.query({ currentWindow: true, active: true }, (tabs) => {
-      chrome.tabs.sendMessage(tabs[0].id, {action: 'nextBtn'}, (response) => {
-
-        if(response.status == 0) {
-          currentIndex = parseInt(response.currentIndex);
-
-          if(wordCnt > 0)
-            currentIndex++; 
-          setCurrentIndex(currentIndex);
-        }
-      });
-    });
+    moveNext();
   });
 
   window.addEventListener('keydown', doKeyPress, false);
 
   closeBtn.addEventListener('click', () => {
-
+    window.close();
   });
 
 }
